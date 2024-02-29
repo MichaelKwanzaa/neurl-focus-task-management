@@ -28,59 +28,59 @@ const SubscriptionSchema = new Schema<SubscriptionDocument>({
     timestamps: true
 })
 // Virtual fields for calculated end date and next billing date
-SubscriptionSchema.virtual('endDate').get(function () {
-    const startDate = this.startDate;
-    const billingFrequency = this.billingFrequency;
+// SubscriptionSchema.virtual('endDate').get(function () {
+//     const startDate = this.startDate;
+//     const billingFrequency = this.billingFrequency;
   
-    if (!startDate || !billingFrequency) {
-      return null;
-    }
+//     if (!startDate || !billingFrequency) {
+//       return null;
+//     }
   
-    const oneYear = 365 * 24 * 60 * 60 * 1000; // milliseconds in a year
+//     const oneYear = 365 * 24 * 60 * 60 * 1000; // milliseconds in a year
   
-    switch (billingFrequency) {
-      case 'monthly':
-        return new Date(startDate.getTime() + 30 * 24 * 60 * 60 * 1000); // Add 30 days
-      case 'yearly':
-        return new Date(startDate.getTime() + oneYear); // Add one year
-      default:
-        return null; // Handle unexpected billing frequencies
-    }
-  });
+//     switch (billingFrequency) {
+//       case 'monthly':
+//         return new Date(startDate.getTime() + 30 * 24 * 60 * 60 * 1000); // Add 30 days
+//       case 'yearly':
+//         return new Date(startDate.getTime() + oneYear); // Add one year
+//       default:
+//         return null; // Handle unexpected billing frequencies
+//     }
+//   });
   
-  SubscriptionSchema.virtual('nextBillingDate').get(function () {
-    const startDate = this.startDate;
-    const billingFrequency = this.billingFrequency;
-    const endDate = this.endDate; // Utilize the calculated endDate
+//   SubscriptionSchema.virtual('nextBillingDate').get(function () {
+//     const startDate = this.startDate;
+//     const billingFrequency = this.billingFrequency;
+//     const endDate = this.endDate; // Utilize the calculated endDate
   
-    if (!startDate || !billingFrequency) {
-      return null;
-    }
+//     if (!startDate || !billingFrequency) {
+//       return null;
+//     }
 
-    const oneYear = 365 * 24 * 60 * 60 * 1000; // milliseconds in a year
+//     const oneYear = 365 * 24 * 60 * 60 * 1000; // milliseconds in a year
 
-    if (!endDate) {
-      // If no end date, next billing date is based on start date and billing frequency
-      switch (billingFrequency) {
-        case 'monthly':
-          return new Date(startDate.getTime() + 30 * 24 * 60 * 60 * 1000); // Add 30 days
-        case 'yearly':
-          return new Date(startDate.getTime() + oneYear); // Add one year
-        default:
-          return null;
-      }
-    } else {
-      // If end date exists, next billing date is after the end date based on billing frequency
-      switch (billingFrequency) {
-        case 'monthly':
-          return new Date(endDate.getTime() + 30 * 24 * 60 * 60 * 1000); // Add 30 days
-        case 'yearly':
-          return new Date(endDate.getTime() + oneYear); // Add one year
-        default:
-          return null;
-      }
-    }
-  });
+//     if (!endDate) {
+//       // If no end date, next billing date is based on start date and billing frequency
+//       switch (billingFrequency) {
+//         case 'monthly':
+//           return new Date(startDate.getTime() + 30 * 24 * 60 * 60 * 1000); // Add 30 days
+//         case 'yearly':
+//           return new Date(startDate.getTime() + oneYear); // Add one year
+//         default:
+//           return null;
+//       }
+//     } else {
+//       // If end date exists, next billing date is after the end date based on billing frequency
+//       switch (billingFrequency) {
+//         case 'monthly':
+//           return new Date(endDate.getTime() + 30 * 24 * 60 * 60 * 1000); // Add 30 days
+//         case 'yearly':
+//           return new Date(endDate.getTime() + oneYear); // Add one year
+//         default:
+//           return null;
+//       }
+//     }
+//   });
 
 
 const Subscription = mongoose.model<SubscriptionDocument>('subscription', SubscriptionSchema)

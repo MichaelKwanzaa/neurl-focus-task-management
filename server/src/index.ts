@@ -10,6 +10,8 @@ import { connectDB } from './config'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import passport from 'passport'
+import log from './utils/Logger.util'
+import passportMiddleware from './middlewares/passport.middleware'
 
 dotenv.config()
 
@@ -20,7 +22,7 @@ const PORT = env.PORT
 try {
   app.use(cors({
     credentials: true,
-    origin: [`http://${process.env.CLIENT_URI}`]
+    origin: process.env.CLIENT_URI
   }))
   app.use(express.json())
   app.use(cookieParser())
@@ -37,8 +39,9 @@ try {
   }))
   app.use(passport.initialize())
   app.use(passport.session())
+  
 
-
+  passportMiddleware()
 
   void connectDB()
 
@@ -46,11 +49,11 @@ try {
 
   const expressServer = server.listen(PORT, (): void => {
     console.clear()
-    console.log(`Server is running on port: ${PORT}`)
+    log.info(`Server is running on port: ${PORT}`)
   })
 
   process.on('unhandledRejection', (reason, promise) => {
-    console.log('Unhandled Rejection at: ', promise, 'reason: ', reason)
+    log.error(`Could not connect to: ${PORT}`)
     expressServer.close(() => process.exit(1))
   })
 } catch (error: any) {
