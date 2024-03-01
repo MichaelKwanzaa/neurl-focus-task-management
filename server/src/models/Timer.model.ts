@@ -6,7 +6,6 @@ interface TimerDocument extends Document{
     cycles: number; // Applicable to "Pomodoro" (default 1, min 1)
     isStarted: boolean; // Indicates if the timer is currently running
     isPaused: boolean; // Indicates if the timer is paused    
-    pomodoroBreakDuration: number 
 }
 
 const TimerSchema = new Schema<TimerDocument>({
@@ -23,7 +22,6 @@ const TimerSchema = new Schema<TimerDocument>({
       cycles: { type: Number, min: 1, default: 1 },
       isStarted: { type: Boolean, default: false },
       isPaused: { type: Boolean, default: false },
-      pomodoroBreakDuration: { type: Number },
 },
 {
     timestamps: true

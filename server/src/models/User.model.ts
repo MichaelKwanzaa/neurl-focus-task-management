@@ -13,6 +13,7 @@ interface UserDocument extends Document{
     subscriptions: ObjectId[]
     tasks: ObjectId[]
     notifications: ObjectId[]
+    settings: ObjectId
 }
 
 const UserSchema = new Schema<UserDocument>({
@@ -33,7 +34,11 @@ const UserSchema = new Schema<UserDocument>({
     notifications: [{
         type: {type: String},
         read: {type: Boolean, default: false}
-    }]
+    }],
+    settings: {
+        type: Schema.Types.ObjectId,
+        ref: 'setting'
+    }
 },
 {
     timestamps: true

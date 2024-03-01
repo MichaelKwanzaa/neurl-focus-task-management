@@ -36,8 +36,6 @@ export const LoginUserGoogle = async (req: Request, res: Response, next: NextFun
 
         const user = req.user as any
 
-        console.log({user})
-
         const session = await createSession(user['_id'], req.get("user-agent") || "");
 
         // create an access token
