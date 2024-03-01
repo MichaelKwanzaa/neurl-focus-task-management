@@ -1,0 +1,27 @@
+<app-wrapper>
+   <div class="settings">
+        <div class="settings-title">
+            <h2>Settings</h2>
+        </div>
+        <div class="settings-content">
+            <form nz-form>
+                <nz-form-item>
+                    <nz-form-label>Pomodoro Work Time (Minutes)</nz-form-label>
+                    <nz-row>
+                        <nz-col nzSpan="12">
+                          <nz-slider [nzMin]="1" [nzMax]="30" [(ngModel)]="pomodoroWorkTime"></nz-slider>
+                        </nz-col>
+                        <div nz-col nzSpan="4">
+                          <nz-input-number
+                            [nzMin]="1"
+                            [nzMax]="30"
+                            [ngStyle]="{ marginLeft: '16px' }"
+                            [(ngModel)]="pomodoroWorkTime"
+                          ></nz-input-number>
+                        </div>
+                      </nz-row>
+                </nz-form-item>
+            </form>
+        </div>
+   </div>
+</app-wrapper>

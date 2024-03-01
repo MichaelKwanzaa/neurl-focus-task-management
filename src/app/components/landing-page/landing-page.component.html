@@ -1,0 +1,16 @@
+<app-wrapper>
+    <div class="timer">
+        <ng-container *ngIf="timerType === 'pomodoro'">
+            <h1>test</h1> 
+            <app-pomodoro-timer></app-pomodoro-timer>
+        </ng-container>
+        <ng-container *ngIf="timerType === 'task-based'">
+            task
+            <app-task-timer></app-task-timer>
+        </ng-container>
+        <ng-container *ngIf="timerType === 'infinite'">
+            infinite
+            <app-infinite-timer></app-infinite-timer>
+        </ng-container>
+    </div>
+</app-wrapper>

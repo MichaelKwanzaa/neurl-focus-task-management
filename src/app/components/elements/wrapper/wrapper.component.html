@@ -1,0 +1,56 @@
+<nz-layout>
+    <nz-sider nzCollapsible nzTheme="light" nzWidth="200px">
+        <div class="logo"></div>
+        <ul nz-menu nzTheme="light" nzMode="inline">
+          <li nz-menu-item>
+            <span nz-icon nzType="pie-chart"></span>
+            <span>Focus</span>
+          </li>
+
+          <li nz-menu-item>
+            <span nz-icon nzType="pie-chart"></span>
+            <span>Tasks</span>
+          </li>
+
+          <li nz-menu-item (click)="goToSettings()">
+            <span nz-icon nzType="pie-chart"></span>
+            <span>Settings</span>
+          </li>
+        </ul>
+      </nz-sider>
+    <nz-layout>
+      <nz-header>
+        <ng-container *ngIf="isLoggedIn">
+            <div class="logged-in-container">
+                <nz-badge [nzCount]="5" nzClick="showNotification()" style="cursor: pointer">
+                    <span nz-icon nzType="bell"></span>
+                   
+                </nz-badge>
+    
+                <nz-avatar
+                [nzGap]="7"
+                [nzText]="name"
+                [nzSize]="55"
+                [nzSrc]="profilePicture"
+                nzSize="large"
+                style="vertical-align: middle;"
+              ></nz-avatar>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!isLoggedIn">
+            <nz-button-group>
+                <button nz-button nzType="primary">
+                    <span nz-icon nzType="login" nzTheme="outline"></span>
+                    Login
+                </button>
+                <button nz-button nzType="primary">
+                  Register
+                  <span nz-icon nzType="global" nzTheme="outline"></span>
+                </button>
+              </nz-button-group>
+        </ng-container>
+      </nz-header>
+      <nz-content><ng-content></ng-content></nz-content>
+      <nz-footer>Footer</nz-footer>
+    </nz-layout>
+  </nz-layout>

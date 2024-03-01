@@ -1,0 +1,6 @@
+<div class="pomodoro-timer">
+  <div class="time-display">
+    {{ timeRemaining | date:'mm:ss' }}  <span *ngIf="phase === 'pomodoro'"> (Pomodoro) </span>  <span *ngIf="phase === 'short'"> (Short Break) </span>  <span *ngIf="phase === 'long'"> (Long Break) </span>  </div>
+  <div class="controls">
+    <button (click)="start()" *ngIf="!isTimerRunning">Start</button>  <button (click)="pause()" *ngIf="isTimerRunning">Pause</button>  <button (click)="reset()">Reset</button>  </div>
+</div>
