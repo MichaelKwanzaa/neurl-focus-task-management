@@ -1,0 +1,74 @@
+<nz-steps [nzCurrent]="currentStep" (nzIndexChange)="handleIndexChange($event)">
+    <nz-step nzTitle="Task Details"></nz-step>
+    <nz-step nzTitle="Priority and Category"></nz-step>
+    <nz-step nzTitle="Dates and Time"></nz-step>
+    <nz-step nzTitle="Additional Details"></nz-step>
+  </nz-steps>
+  
+  <div *ngIf="currentStep === 0">
+    <h4>Task Details</h4>
+    <nz-input-group>
+      <input type="text" nz-input placeholder="Task Title" [(ngModel)]="taskData.title" />
+    </nz-input-group>
+    <nz-input-group>
+      <textarea nz-input rows="4" placeholder="Task Description" [(ngModel)]="taskData.description"></textarea>
+    </nz-input-group>
+  </div>
+  
+  <div *ngIf="currentStep === 1">
+    <h4>Priority and Category</h4>
+    <nz-select [(ngModel)]="taskData.priority" nzPlaceHolder="Select Priority">
+      <nz-option nzValue="low" nzLabel="Low"></nz-option>
+      <nz-option nzValue="medium" nzLabel="Medium"></nz-option>
+      <nz-option nzValue="high" nzLabel="High"></nz-option>
+    </nz-select>
+    <nz-input-group>
+      <input type="text" nz-input placeholder="Task Category" [(ngModel)]="taskData.category" />
+    </nz-input-group>
+  </div>
+  
+  <div *ngIf="currentStep === 2">
+    <h4>Dates and Time</h4>
+    <nz-date-picker [(ngModel)]="taskData.startDate" nzPlaceHolder="Start Date"></nz-date-picker>
+    <nz-date-picker [(ngModel)]="taskData.dueDate" nzPlaceHolder="Due Date"></nz-date-picker>
+  </div>
+  
+  <div *ngIf="currentStep === 3">
+    <!-- Additional Details Section -->
+    <h4>Timer Selection</h4>
+    <nz-select [(ngModel)]="taskData.timer" nzPlaceHolder="Select Timer Type" (ngModelChange)="handleTimerSelection(taskData.timer)">
+      <nz-option nzValue="pomodoro" nzLabel="Pomodoro"></nz-option>
+      <nz-option nzValue="task-based" nzLabel="Task-based"></nz-option>
+      <nz-option nzValue="infinite" nzLabel="Infinite"></nz-option>
+    </nz-select>
+  
+    <div *ngIf="taskData.timer === 'task-based' || taskData.timer === 'infinite'">
+      <!-- Subtasks Section -->
+      <h4>Subtasks</h4>
+      <button nz-button nzType="default" (click)="addSubtask()">Add Subtask</button>
+      <div *ngFor="let subtask of taskData.subtasks; let i = index">
+            <div>
+              <input type="text" [(ngModel)]="subtask.title" placeholder="Subtask Title" />
+              <input type="number" [(ngModel)]="subtask.estimatedTime" placeholder="Estimated Time (minutes)" />
+              <button nz-button nzType="default" (click)="removeSubtask(i)">Remove</button>
+            </div>
+            <!-- Add fields for other subtask properties as needed -->
+      </div>
+    </div>
+
+    <div>
+        <h4>Additional Details</h4>
+        <nz-input-group>
+          <textarea nz-input rows="4" placeholder="Task Notes" [(ngModel)]="taskData.notes"></textarea>
+        </nz-input-group>
+      </div>
+  </div>
+  
+  <div class="steps-action">
+    <button nz-button nzType="default" (click)="prevStep()" *ngIf="currentStep > 0">
+      <span>Previous</span>
+    </button>
+    <button nz-button nzType="default" (click)="nextStep()" *ngIf="currentStep < 4 && currentStep !== 3">
+      <span>Next</span>
+    </button>
+  </div>

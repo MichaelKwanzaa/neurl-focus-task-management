@@ -1,6 +1,31 @@
 <div class="pomodoro-timer">
   <div class="time-display">
-    {{ timeRemaining | date:'mm:ss' }}  <span *ngIf="phase === 'pomodoro'"> (Pomodoro) </span>  <span *ngIf="phase === 'short'"> (Short Break) </span>  <span *ngIf="phase === 'long'"> (Long Break) </span>  </div>
+    <h1 class="time-digits">{{ timeRemaining | formatTime }}</h1>
+    <div class="phase-indicator">
+      <span *ngIf="phase === 'pomodoro'" class="pomodoro-phase"></span>
+      <span *ngIf="phase === 'short'" class="short-break-phase"></span>
+      <span *ngIf="phase === 'long'" class="long-break-phase"></span>
+    </div>
+    <p class="phase-label">{{ phase | capitalize }}</p>
+  </div>
+  <div class="pomodoro-count">
+    <p>Pomodoros: {{ pomodoroCount }} / {{ interval }}</p>
+    <div class="progress-bar">
+      <div class="progress" [style.width]="calculateProgress() + '%'"></div>
+    </div>
+  </div>
   <div class="controls">
-    <button (click)="start()" *ngIf="!isTimerRunning">Start</button>  <button (click)="pause()" *ngIf="isTimerRunning">Pause</button>  <button (click)="reset()">Reset</button>  </div>
+    <button (click)="startTimer()" *ngIf="!isTimerRunning" class="start-button">
+      <i class="fa fa-play"></i> Start
+    </button>
+    <button (click)="pause()" *ngIf="isTimerRunning" class="pause-button">
+      <i class="fa fa-pause"></i> Pause
+    </button>
+    <button (click)="skip()" *ngIf="!isTimerRunning" class="skip-button">
+      <i class="fa fa-forward"></i> Skip
+    </button>
+    <button (click)="reset()" class="reset-button">
+      <i class="fa fa-refresh"></i> Reset
+    </button>
+  </div>
 </div>

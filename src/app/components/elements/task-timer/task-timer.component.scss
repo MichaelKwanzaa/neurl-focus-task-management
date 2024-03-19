@@ -1,0 +1,80 @@
+.task-timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+  }
+  
+  .time-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .time-digits {
+    font-size: 80px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+  }
+  
+  .subtask-title,
+  .no-subtasks {
+    font-size: 18px;
+    color: #666;
+    margin: 5px 0 0;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .progress {
+    height: 100%;
+    background-color: #4caf50;
+    transition: width 0.5s ease-in-out;
+  }
+  
+  .controls {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .controls button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    margin: 0 5px;
+  }
+  
+  .controls button:hover,
+  .controls button:focus {
+    background-color: #2980b9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  .controls button:active {
+    background-color: #1d6fa5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+  }
+  
+  .fa {
+    margin-right: 5px;
+  }

@@ -9,7 +9,9 @@
                     <nz-form-label>Pomodoro Work Time (Minutes)</nz-form-label>
                     <nz-row>
                         <nz-col nzSpan="12">
-                          <nz-slider [nzMin]="1" [nzMax]="30" [(ngModel)]="pomodoroWorkTime"></nz-slider>
+                          <nz-slider [nzMin]="1" [nzMax]="30"
+                           [(ngModel)]="pomodoroWorkTime"
+                           name="pomodoroWorkTime"></nz-slider>
                         </nz-col>
                         <div nz-col nzSpan="4">
                           <nz-input-number
@@ -17,10 +19,76 @@
                             [nzMax]="30"
                             [ngStyle]="{ marginLeft: '16px' }"
                             [(ngModel)]="pomodoroWorkTime"
+                            name="pomodoroWorkTime"
                           ></nz-input-number>
                         </div>
                       </nz-row>
                 </nz-form-item>
+
+                <nz-form-item>
+                  <nz-form-label>Pomodoro Short Break Time (Minutes)</nz-form-label>
+                  <nz-row>
+                      <nz-col nzSpan="12">
+                        <nz-slider [nzMin]="1" [nzMax]="20"
+                         [(ngModel)]="pomodoroShortBreakTime"
+                         name="pomodoroShortBreakTime"></nz-slider>
+                      </nz-col>
+                      <div nz-col nzSpan="4">
+                        <nz-input-number
+                          [nzMin]="1"
+                          [nzMax]="20"
+                          [ngStyle]="{ marginLeft: '16px' }"
+                          [(ngModel)]="pomodoroShortBreakTime"
+                          name="pomodoroShortBreakTime"
+                        ></nz-input-number>
+                      </div>
+                    </nz-row>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label>Pomodoro Short Break Time (Minutes)</nz-form-label>
+                <nz-row>
+                    <nz-col nzSpan="12">
+                      <nz-slider [nzMin]="1" [nzMax]="30"
+                       [(ngModel)]="pomodoroLongBreakTime"
+                       name="pomodoroLongBreakTime"></nz-slider>
+                    </nz-col>
+                    <div nz-col nzSpan="4">
+                      <nz-input-number
+                        [nzMin]="1"
+                        [nzMax]="30"
+                        [ngStyle]="{ marginLeft: '16px' }"
+                        [(ngModel)]="pomodoroLongBreakTime"
+                        name="pomodoroLongBreakTime"
+                      ></nz-input-number>
+                    </div>
+                  </nz-row>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label>Pomodoro Interval Count</nz-form-label>
+                <nz-row>
+                    <nz-col nzSpan="12">
+                      <nz-slider [nzMin]="1" [nzMax]="10"
+                       [(ngModel)]="pomodoroIntervalCount"
+                       name="pomodoroIntervalCount"></nz-slider>
+                    </nz-col>
+                    <div nz-col nzSpan="4">
+                      <nz-input-number
+                        [nzMin]="1"
+                        [nzMax]="10"
+                        [ngStyle]="{ marginLeft: '16px' }"
+                        [(ngModel)]="pomodoroIntervalCount"
+                        name="pomodoroIntervalCount"
+                      ></nz-input-number>
+                    </div>
+                  </nz-row>
+              </nz-form-item>
+            <nz-form-item>
+              <nz-form-control [nzSpan]="8" [nzOffset]="4">
+                <button nz-button nzType="primary" (click)="upsertSettings()">Update Settings</button>
+              </nz-form-control>
+            </nz-form-item>
             </form>
         </div>
    </div>

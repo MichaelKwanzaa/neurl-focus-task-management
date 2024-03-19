@@ -1,0 +1,112 @@
+.login{
+    height: 100%;
+    width: 100%;
+
+    .container{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 30px;
+
+        .form{
+            position: absolute;
+            max-width: 430px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 6px;
+            background-color: #f0f0f0;
+
+            .form-content{
+
+                header{
+                    font-size: 28px;
+                    font-weight: 600;
+                    color: black;
+                    text-align: center;
+                }
+
+                form{
+                    margin-top: 30px;
+
+                    .field{
+                        position: relative;
+                        height: 50px;
+                        width: 100%;
+                        border-radius: 6px;;
+                    }
+
+                    .login-form-button{
+                        color: #fff;
+                        background-color: #1890ff;
+                        transition: all 0.3s ease;
+                        cursor: pointer;
+                        width: 100%;
+                        border: none;
+                        padding: 6px 8px;
+                    }
+                }
+
+                .form-link{
+                    text-align: center;
+                    margin-top: 10px;
+
+                    span{
+                        font-size: 14px;
+                        font-weight: 400;
+                        a{
+                            text-decoration: none;
+
+                            &:hover{
+                                text-decoration: underline;
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            .line{
+                position: relative; 
+                height: 1px; 
+                width: 100%;
+                margin: 36px 0;
+                background-color: #d4d4d4;
+
+                &::before{
+                    content: 'Or'; 
+                    position: absolute; 
+                    top: 50%; 
+                    left: 50%; 
+                    transform: translate(-50%, -50%); 
+                    background-color: #f0f0f0; 
+                    color: #8b8b8b; 
+                    padding: 0 15px;
+                }
+            }
+
+            .media-options{
+                a{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 1px solid #CACACA;
+                    
+                    img{
+                        margin-right: 20px;
+                        height: 20px;
+                        width: 20px;
+                        object-fit: cover;
+                    }
+
+                    span{
+                        font-weight: 600;
+                        opacity: 0.6;
+                        color: #232836;
+                    }
+                }
+            }
+        }
+    }
+}

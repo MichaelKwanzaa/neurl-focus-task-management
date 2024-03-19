@@ -1,0 +1,38 @@
+<div class="task-view" *ngIf="task">
+  <div class="task-header">
+    <h3>{{ task.title }}</h3>
+    <div class="task-actions">
+      <button nz-button nzType="primary" (click)="toggleSubtasks()">
+        <i nz-icon [nzType]="showSubtasks ? 'minus' : 'plus'"></i>
+        {{ showSubtasks ? 'Hide' : 'Show' }} Subtasks
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        (click)="markCompleted()"
+        *ngIf="!task.isCompleted"
+      >
+        <i nz-icon nzType="check"></i>
+        Mark Completed
+      </button>
+    </div>
+  </div>
+  <div class="task-body">
+    <p class="description">{{ task.description }}</p>
+    <nz-collapse *ngIf="task.subtasks && task.subtasks.length > 0">
+      <nz-collapse-panel nzHeader="Subtasks" [nzDisabled]="task.isCompleted" [nzActive]="showSubtasks">
+        <nz-list>
+          <nz-list-item *ngFor="let subtask of task.subtasks">
+            <nz-checkbox [(ngModel)]="subtask.isCompleted" (click)="markSubtaskComplete(subtask)">
+              <span [class.completed]="subtask.isCompleted">{{ subtask.title }}</span>
+            </nz-checkbox>
+          </nz-list-item>
+        </nz-list>
+      </nz-collapse-panel>
+    </nz-collapse>
+    <p *ngIf="task.notes" class="notes">
+      <i nz-icon nzType="book"></i>
+      Notes: {{ task.notes }}
+    </p>
+  </div>
+</div>

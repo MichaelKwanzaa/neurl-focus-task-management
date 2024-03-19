@@ -1,16 +1,34 @@
 <app-wrapper>
-    <div class="timer">
-        <ng-container *ngIf="timerType === 'pomodoro'">
-            <h1>test</h1> 
-            <app-pomodoro-timer></app-pomodoro-timer>
-        </ng-container>
-        <ng-container *ngIf="timerType === 'task-based'">
-            task
-            <app-task-timer></app-task-timer>
-        </ng-container>
-        <ng-container *ngIf="timerType === 'infinite'">
-            infinite
-            <app-infinite-timer></app-infinite-timer>
-        </ng-container>
+    <div class="main-content">
+        <div class="task-section">
+          <div class="create-new-task" *ngIf="selectedTask">
+            <button nz-button nzType="primary" (click)="showCreateTaskDialog()">
+              <span>Create New task</span>
+            </button>
+          </div>
+          <div class="timer-container" *ngIf="settings && selectedTask">
+            <div class="timer">
+              <ng-container [ngSwitch]="timerType">
+                <app-pomodoro-timer
+                  *ngSwitchCase="'pomodoro'"
+                  [settings]="settings"
+                  [task]="selectedTask"
+                ></app-pomodoro-timer>
+                <app-task-timer *ngSwitchCase="'task-based'" [task]="selectedTask"></app-task-timer>
+                <app-infinite-timer *ngSwitchCase="'infinite'"></app-infinite-timer>
+                <p *ngSwitchDefault>Invalid timer type</p>
+              </ng-container>
+            </div>
+            <div class="task-details">
+              <app-display-task [task]="selectedTask"></app-display-task>
+            </div>
+          </div>
+        <div class="no-task" *ngIf="!selectedTask">
+            <h1>No selected task</h1>
+            <button nz-button nzType="primary" (click)="showCreateTaskDialog()">
+                <span>Create New task</span>
+            </button>
+        </div>
+        </div>
     </div>
 </app-wrapper>

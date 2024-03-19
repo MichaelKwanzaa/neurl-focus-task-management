@@ -1,1 +1,27 @@
-<p>task-timer works!</p>
+<div class="task-timer">
+    <div class="time-display">
+      <h1 class="time-digits">{{ timeRemaining | formatTime }}</h1>
+      <p *ngIf="currentSubtask" class="subtask-title">{{ currentSubtask.title }}</p>
+      <p *ngIf="!currentSubtask && !incompleteSubtasks.length" class="no-subtasks">All subtasks completed</p>
+    </div>
+    <div class="progress-bar">
+      <div class="progress" [style.width]="calculateProgress() + '%'"></div>
+    </div>
+    <div class="controls">
+      <button (click)="startTimer()" *ngIf="!isTimerRunning && currentSubtask" class="start-button">
+        <i class="fa fa-play"></i> Start
+      </button>
+      <button (click)="pause()" *ngIf="isTimerRunning" class="pause-button">
+        <i class="fa fa-pause"></i> Pause
+      </button>
+      <button (click)="reset()" class="reset-button">
+        <i class="fa fa-refresh"></i> Reset
+      </button>
+      <button (click)="moveToNextSubtask()" *ngIf="!isTimerRunning && currentSubtask" class="next-button">
+        <i class="fa fa-step-forward"></i> Next 
+      </button>
+      <button (click)="markCurrentAndMoveToNext()" *ngIf="isTimerRunning && currentSubtask" class="mark-next-button">
+        <i class="fa fa-check"></i> Mark & Next
+      </button>
+    </div>
+  </div>

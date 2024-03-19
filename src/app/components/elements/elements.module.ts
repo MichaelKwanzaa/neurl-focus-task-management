@@ -6,6 +6,10 @@ import { CoreModule } from 'src/app/core/core.module';
 import { PomodoroTimerComponent } from './pomodoro-timer/pomodoro-timer.component';
 import { TaskTimerComponent } from './task-timer/task-timer.component';
 import { InfiniteTimerComponent } from './infinite-timer/infinite-timer.component';
+import { CreateTaskComponent } from './dialogs/create-task/create-task.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DisplayTaskComponent } from './display-task/display-task.component';
+import { EditTaskComponent } from './dialogs/edit-task/edit-task.component';
 
 
 
@@ -16,10 +20,15 @@ import { InfiniteTimerComponent } from './infinite-timer/infinite-timer.componen
     PomodoroTimerComponent,
     TaskTimerComponent,
     InfiniteTimerComponent,
+    CreateTaskComponent,
+    DisplayTaskComponent,
+    EditTaskComponent,
   ],
   imports: [
     CommonModule,
-    CoreModule
+    CoreModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     SideBarComponent,
@@ -27,6 +36,8 @@ import { InfiniteTimerComponent } from './infinite-timer/infinite-timer.componen
     PomodoroTimerComponent,
     TaskTimerComponent,
     InfiniteTimerComponent,
+    CreateTaskComponent,
+    DisplayTaskComponent,
   ]
 })
 export class ElementsModule { }

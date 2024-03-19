@@ -12,6 +12,16 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+
 
 @NgModule({
   declarations: [],
@@ -28,7 +38,16 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     NzInputNumberModule,
     NzSliderModule,
     NzFormModule,
-    NzInputModule
+    NzInputModule,
+    NzModalModule,
+    NzSelectModule,
+    NzDatePickerModule,
+    NzToolTipModule,
+    NzCardModule,
+    NzCollapseModule,
+    NzListModule,
+    NzCheckboxModule,
+    NzPaginationModule
   ],
   exports: [
     NzLayoutModule,
@@ -42,7 +61,16 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     NzInputNumberModule,
     NzSliderModule,
     NzFormModule,
-    NzInputModule
+    NzInputModule,
+    NzModalModule,
+    NzSelectModule,
+    NzDatePickerModule,
+    NzToolTipModule,
+    NzCardModule,
+    NzCollapseModule,
+    NzListModule,
+    NzCheckboxModule,
+    NzPaginationModule
   ]
 })
 export class AntServiceModule { }

@@ -2,17 +2,17 @@
     <nz-sider nzCollapsible nzTheme="light" nzWidth="200px">
         <div class="logo"></div>
         <ul nz-menu nzTheme="light" nzMode="inline">
-          <li nz-menu-item>
+          <li nz-menu-item (click)="goToUrl('')">
             <span nz-icon nzType="pie-chart"></span>
             <span>Focus</span>
           </li>
 
-          <li nz-menu-item>
+          <li nz-menu-item (click)="goToUrl('tasks')">
             <span nz-icon nzType="pie-chart"></span>
             <span>Tasks</span>
           </li>
 
-          <li nz-menu-item (click)="goToSettings()">
+          <li nz-menu-item (click)="goToUrl('settings')">
             <span nz-icon nzType="pie-chart"></span>
             <span>Settings</span>
           </li>
@@ -27,30 +27,51 @@
                    
                 </nz-badge>
     
-                <nz-avatar
-                [nzGap]="7"
-                [nzText]="name"
-                [nzSize]="55"
-                [nzSrc]="profilePicture"
-                nzSize="large"
-                style="vertical-align: middle;"
-              ></nz-avatar>
+                  <nz-avatar
+                    nz-dropdown
+                    [nzGap]="7"
+                    [nzText]="name"
+                    [nzSize]="55"
+                    [nzSrc]="profilePicture"
+                    nzSize="large"
+                    style="vertical-align: middle; cursor: pointer;"
+                    [nzDropdownMenu]="menu1"
+                  ></nz-avatar>
+
+                  <nz-dropdown-menu #menu1="nzDropdownMenu">
+                    <ul nz-menu>
+                      <li nz-menu-item (click)="goToUrl('profile')">
+                        <span nz-icon nzType="user"></span>
+                        Profile
+                      </li>
+                      <li nz-menu-item (click)="goToUrl('subscription')">
+                        <span nz-icon nzType="dollar"></span>
+                        Subscription
+                      </li>
+                      <li nz-menu-item (click)="logout()">
+                        <span nz-icon nzType="logout"></span>
+                        Logout
+                      </li>
+                    </ul>
+                  </nz-dropdown-menu>
             </div>
         </ng-container>
         <ng-container *ngIf="!isLoggedIn">
             <nz-button-group>
-                <button nz-button nzType="primary">
+                <button nz-button nzType="primary" (click)="goToUrl('login')">
                     <span nz-icon nzType="login" nzTheme="outline"></span>
                     Login
                 </button>
-                <button nz-button nzType="primary">
+                <button nz-button nzType="primary" (click)="goToUrl('register')">
                   Register
                   <span nz-icon nzType="global" nzTheme="outline"></span>
                 </button>
               </nz-button-group>
         </ng-container>
       </nz-header>
-      <nz-content><ng-content></ng-content></nz-content>
-      <nz-footer>Footer</nz-footer>
+      <nz-content>
+        <ng-content></ng-content>
+      </nz-content>
+      <!-- <nz-footer>Footer</nz-footer> -->
     </nz-layout>
   </nz-layout>

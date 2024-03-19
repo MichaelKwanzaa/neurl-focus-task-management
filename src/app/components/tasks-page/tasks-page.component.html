@@ -1,0 +1,53 @@
+<app-wrapper>
+  <div class="nz-list-container">
+    <div class="nz-list-header">
+      <h2>Task List</h2>
+      <div class="nz-list-search">
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+          <input type="text" nz-input placeholder="Search..." [(ngModel)]="searchTerm" (ngModelChange)="filterTasks()" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+        </ng-template>
+      </div>
+    </div>
+    <nz-list [nzBordered]="true" [nzItemLayout]="'horizontal'" [nzSize]="'large'" [nzSplit]="true" nGrid>
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzXXl]="8" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24" *ngFor="let task of filteredTasks">
+          <nz-list-item>
+            <nz-card nzHoverable>
+              <div class="task-header">
+                <h3>{{ task.title }}</h3>
+                <span class="task-priority" [ngClass]="getPriorityClass(task.priority)">{{ task.priority }}</span>
+              </div>
+              <p class="task-description">{{ task.description }}</p>
+              <div class="task-details">
+                <div>
+                  <span class="detail-label">Category:</span>
+                  <span class="detail-value">{{ task.category }}</span>
+                </div>
+                <div>
+                  <span class="detail-label">Due Date:</span>
+                  <span class="detail-value">{{ task.dueDate | date }}</span>
+                </div>
+                <div>
+                  <span class="detail-label">Estimated Time:</span>
+                  <span class="detail-value">{{ task.estimatedTime }} hours</span>
+                </div>
+                <div>
+                  <span class="detail-label">Completed:</span>
+                  <span class="detail-value">{{ task.isCompleted ? 'Yes' : 'No' }}</span>
+                </div>
+              </div>
+              <div class="task-actions">
+                <button nz-button nzType="default" (click)="editTask(task)">Edit</button>
+                <button nz-button (click)="deleteTask(task)">Delete</button>
+              </div>
+            </nz-card>
+          </nz-list-item>
+        </div>
+      </div>
+    </nz-list>
+  </div>
+  </app-wrapper>
+  
