@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SettingService } from 'src/app/core/services/setting-service/setting.service';
-import { Settings, Task } from 'src/app/models';
+import { Category, Settings, Task } from 'src/app/models';
 import { CreateTaskComponent } from '../elements/dialogs/create-task/create-task.component';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
 import { TaskService } from 'src/app/core/services/task-service/task.service';
 import { StorageService } from 'src/app/core/services/storage-service/storage.service';
+import { NotificationLocalService } from 'src/app/core/services/notification-local-service/notification-local.service';
+import { CategoryService } from 'src/app/core/services/category-service/category.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -15,6 +17,7 @@ import { StorageService } from 'src/app/core/services/storage-service/storage.se
 export class LandingPageComponent {
   timerType: string = 'pomodoro';
   settings: any = null;
+  categories: Category[] = [];
   selectedTask: any = null;
   isAuthenticated: boolean = false;
 
@@ -22,7 +25,9 @@ export class LandingPageComponent {
     private modalService: NzModalService,
     private authenticationService: AuthenticationService,
     private taskService: TaskService,
-    private storageService: StorageService) {}
+    private storageService: StorageService,
+    private notificationLocalService: NotificationLocalService,
+    private categoryService: CategoryService) {}
 
   ngOnInit(){
     this.settings = this.settingsService.getLocalSettings();
@@ -32,6 +37,9 @@ export class LandingPageComponent {
     this.authenticationService.currentAuthenticationState.subscribe((state) => {
       this.isAuthenticated = state;
     })
+    this.categoryService.categories$.subscribe(categories => {
+      this.categories = JSON.parse(categories);
+    })
     
     if(this.selectedTask){
       this.timerType = this.selectedTask['timer']
@@ -40,15 +48,23 @@ export class LandingPageComponent {
 
   showCreateTaskDialog(){
     const modal = this.modalService.create({
-      nzTitle: 'Modal Title',
+      nzTitle: 'Create Task',
       nzContent: CreateTaskComponent,
       nzWidth: '80vw',
+      nzData: {
+        categories: this.categories
+      },
       nzOnOk: async () => {
         const modalTask = modal.getContentComponent().taskData;
 
         if(this.isAuthenticated){
-          this.taskService.createTask(modalTask).subscribe(() => {
-            console.log('saved')
+          this.taskService.createTask(modalTask).subscribe({
+            next: (data: any) => {
+              this.notificationLocalService.createSuccessNotification('Successfully created task!')
+            },
+            error: (err) => {
+              this.notificationLocalService.createErrorNotification('Something went wrong uploading the task data!')
+            }
           })
         }
 
@@ -60,3 +76,5 @@ export class LandingPageComponent {
     });
   }
 }
+
+

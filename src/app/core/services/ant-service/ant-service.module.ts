@@ -21,6 +21,8 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+
 
 
 @NgModule({
@@ -47,7 +49,8 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
     NzCollapseModule,
     NzListModule,
     NzCheckboxModule,
-    NzPaginationModule
+    NzPaginationModule,
+    NzNotificationModule
   ],
   exports: [
     NzLayoutModule,
@@ -70,7 +73,8 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
     NzCollapseModule,
     NzListModule,
     NzCheckboxModule,
-    NzPaginationModule
+    NzPaginationModule,
+    NzNotificationModule
   ]
 })
 export class AntServiceModule { }

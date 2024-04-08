@@ -1,74 +1,84 @@
 .nz-list-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .selected {
+    background-color: #e6f7ff; // Change this to your desired highlight color
+    border-radius: 4px; // Add a border radius to make the selection more visible
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); // Add a box shadow to make the selection stand out
   }
-  
-  .nz-list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .nz-list-search {
-    width: 300px;
-  }
-  
-  .task-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-  }
-  
-  .task-priority {
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  .task-priority.low {
+}
+
+.nz-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.nz-list-search {
+  width: 300px;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.task-priority {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  &.low {
     background-color: #d9f7be;
     color: #389e0d;
   }
-  
-  .task-priority.medium {
+
+  &.medium {
     background-color: #fff3cd;
     color: #856404;
   }
-  
-  .task-priority.high {
+
+  &.high {
     background-color: #f8d7da;
     color: #721c24;
   }
-  
-  .task-description {
-    margin-bottom: 1rem;
-  }
-  
-  .task-details {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 1rem;
-  }
-  
-  .task-details > div {
+}
+
+.task-description {
+  max-height: 2.5rem; // Adjust this value as needed
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 1rem;
+}
+
+.task-details {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+
+  > div {
     display: flex;
     align-items: center;
     margin-right: 1rem;
     margin-bottom: 0.5rem;
   }
-  
-  .detail-label {
-    font-weight: bold;
-    margin-right: 0.25rem;
-  }
-  
-  .task-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-  }
+}
+
+.detail-label {
+  font-weight: bold;
+  margin-right: 0.25rem;
+}
+
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base-service.service';
 import { Settings } from 'src/app/models';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { StorageService } from '../storage-service/storage.service';
 import { STORAGE_KEYS } from 'src/app/models/Storage_keys.model';
 
@@ -21,6 +21,15 @@ export class SettingService extends BaseService{
     pomodoroLongBreakTime: this.pomodoroLongBreakTime,
     pomodoroIntervalCount: this.pomodoroIntervalCount
   }
+
+  private settingSubject = new BehaviorSubject<Settings>({
+    pomodoroWorkTime: 25,
+    pomodoroShortBreakTime: 5,
+    pomodoroLongBreakTime: 15,
+    pomodoroIntervalCount: 4
+  });
+  settings$: Observable<Settings > = this.settingSubject.asObservable();
+
 
   constructor(private http: HttpClient, private storageService: StorageService) { 
     super('setting')
@@ -41,6 +50,7 @@ export class SettingService extends BaseService{
   public updateLocalSettings(settings: Settings){
     console.log(settings, "getting the settings from somehwre")
     this.settings = settings;
+    this.settingSubject.next(settings);
     this.storageService.setData(STORAGE_KEYS.SETTINGS, settings);
   }
 

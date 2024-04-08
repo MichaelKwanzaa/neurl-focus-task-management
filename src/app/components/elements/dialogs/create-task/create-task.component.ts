@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
+import { NzSelectOptionInterface } from 'ng-zorro-antd/select';
 import { Task } from 'src/app/models';
+import { Category } from 'src/app/models/Category.model';
 
 @Component({
   selector: 'app-create-task',
@@ -22,6 +25,22 @@ export class CreateTaskComponent {
     timer: '',
     subtasks: []
   };
+
+  @Input() categories: Category[] = []; // Receives categories from parent component
+  selectedCategory: string = '';
+  newCategoryName: string = '';
+
+
+  constructor(@Inject(NZ_MODAL_DATA) public data: any){
+  }
+
+  ngOnInit(){
+    this.categories = this.data['categories'].map((cat: any) => {
+      return {
+        name: cat.name[0].toUpperCase() + cat.name.slice(1)
+      }
+      })
+  }
 
   handleIndexChange(index: number): void {
     this.currentStep = index;
@@ -61,5 +80,13 @@ export class CreateTaskComponent {
     this.taskData.subtasks.splice(index, 1);
     // Update order of remaining subtasks
     this.taskData.subtasks.forEach((subtask, idx) => subtask.order = idx + 1);
+  }
+
+  onCategoryChange(value: any): void {
+    if(this.selectedCategory === 'new-option'){
+      this.taskData.category = '';
+    } else {
+      this.taskData.category = this.selectedCategory;
+    }
   }
 }

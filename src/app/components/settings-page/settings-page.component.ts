@@ -16,17 +16,14 @@ export class SettingsPageComponent {
   pomodoroIntervalCount: any = 4;
 
 
-  settings: Settings = {
-    pomodoroWorkTime: this.pomodoroWorkTime,
-    pomodoroShortBreakTime: this.pomodoroShortBreakTime,
-    pomodoroLongBreakTime: this.pomodoroLongBreakTime,
-    pomodoroIntervalCount: this.pomodoroIntervalCount
-  }
+  settings : Settings = {};
 
   constructor(private settingsService: SettingService, private storageService: StorageService){}
 
   ngOnInit(){
-    this.settings = this.settingsService.getLocalSettings();
+    this.settingsService.settings$.subscribe(settings => {
+      this.settings = settings;
+    })
   }
 
   upsertSettings(){

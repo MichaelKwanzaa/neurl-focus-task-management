@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin, shareReplay, take } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
+import { CategoryService } from 'src/app/core/services/category-service/category.service';
 import { SettingService } from 'src/app/core/services/setting-service/setting.service';
 import { StorageService } from 'src/app/core/services/storage-service/storage.service';
 import { TaskService } from 'src/app/core/services/task-service/task.service';
@@ -28,18 +29,27 @@ export class WrapperComponent {
     private tasksService: TaskService,
     private storageService: StorageService,
     private authenticationService: AuthenticationService,
-    private userService: UserService){
+    private userService: UserService,
+    private categoryService: CategoryService){
 
     }
 
   ngOnInit(){
-    this.authenticationService.currentAuthenticationState.pipe(shareReplay(), take(1)).subscribe((state) => {
+    
+    this.authenticationService.currentAuthenticationState.subscribe((state) => {
       if(state){
         this.isLoggedIn = true;
 
-        this.userService.getUser().subscribe((userData) => {
-          console.log(userData)
+        const user$ = this.userService.getUser();
 
+        const categories$ = this.categoryService.getUserCategories();
+
+
+        forkJoin([user$, categories$]).subscribe((responses) => {
+          const userData = responses[0];
+          const categoriesData = responses[1];
+
+          /** start of user data sorting */
           const user = userData.data.data;
           const pomodoroWorkTime = user['settings'].pomodoroWorkTime;
           const pomodoroShortBreakTime = user['settings'].pomodoroShortBreakTime;
@@ -63,6 +73,14 @@ export class WrapperComponent {
 
           this.settingsService.updateLocalSettings(updatedSettings);
           this.tasksService.setAllTasks(user['tasks']);
+          /** end of user data sorting */
+          /** start of category sorting */
+          const categories = categoriesData.data.data;
+
+          this.categoryService.setLocalCategories(categories);
+
+          /**end of category sorting */
+
         })
 
       } else {
@@ -88,6 +106,9 @@ export class WrapperComponent {
   }
 
   logout(){
-
+    this.authenticationService.logout().subscribe((data) => {
+      this.authenticationService.handleLocalLogout();
+      this.isLoggedIn = false;
+    })
   }
 }

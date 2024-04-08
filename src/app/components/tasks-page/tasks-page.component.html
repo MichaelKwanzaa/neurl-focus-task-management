@@ -13,18 +13,26 @@
     </div>
     <nz-list [nzBordered]="true" [nzItemLayout]="'horizontal'" [nzSize]="'large'" [nzSplit]="true" nGrid>
       <div nz-row [nzGutter]="16">
-        <div nz-col [nzXXl]="8" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24" *ngFor="let task of filteredTasks">
-          <nz-list-item>
+        <div nz-col [nzXXl]="8" 
+        [nzXl]="4" 
+        [nzLg]="6" 
+        [nzMd]="6" 
+        [nzSm]="12" 
+        [nzXs]="24"
+        *ngFor="let task of filteredTasks">
+          <nz-list-item
+          (click)="selectActiveTask(task)"
+          [class.selected]="task === selectedTask">
             <nz-card nzHoverable>
               <div class="task-header">
                 <h3>{{ task.title }}</h3>
                 <span class="task-priority" [ngClass]="getPriorityClass(task.priority)">{{ task.priority }}</span>
               </div>
-              <p class="task-description">{{ task.description }}</p>
+              <p class="task-description">{{ truncateDescription(task.description) }}</p>
               <div class="task-details">
                 <div>
                   <span class="detail-label">Category:</span>
-                  <span class="detail-value">{{ task.category }}</span>
+                  <span class="detail-value">{{ 'bob' }}</span>
                 </div>
                 <div>
                   <span class="detail-label">Due Date:</span>
@@ -48,6 +56,12 @@
         </div>
       </div>
     </nz-list>
+    <nz-pagination
+      [nzPageIndex]="currentPage"
+      [nzTotal]="tasks.length"
+      [nzPageSize]="pageSize"
+      (nzPageIndexChange)="onPageChange($event)"
+      ></nz-pagination>
   </div>
   </app-wrapper>
   

@@ -1,0 +1,48 @@
+.step-container {
+    margin-top: 20px;
+  }
+  
+  .step-content {
+    margin-bottom: 30px;
+  }
+  
+  .form-field {
+    margin-bottom: 15px;
+
+    nz-select {
+        flex: 1; /* Allow the select to grow to fill available space */
+        min-width: 200px;
+    }
+
+
+  }
+
+  
+  
+  .subtask-container {
+    margin-bottom: 10px;
+  }
+  
+  .subtask-fields {
+    display: flex;
+    align-items: center;
+  }
+  
+  .subtask-fields input {
+    margin-right: 10px;
+  }
+  
+  .additional-details {
+    margin-top: 20px;
+  }
+  
+  .steps-action {
+    margin-top: 20px;
+    text-align: right;
+  }
+  
+  .steps-action button {
+    margin-left: 10px;
+  }
+
+  
