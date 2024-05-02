@@ -4,6 +4,9 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { TaskService } from 'src/app/core/services/task-service/task.service';
 import { Task } from 'src/app/models';
 import { EditTaskComponent } from '../elements/dialogs/edit-task/edit-task.component';
+import { CategoryService } from 'src/app/core/services/category-service/category.service';
+import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
+import { NotificationLocalService } from 'src/app/core/services/notification-local-service/notification-local.service';
 
 @Component({
   selector: 'app-tasks-page`',
@@ -36,10 +39,16 @@ export class TasksPageComponent {
 
   currentPage: number = 1;
   pageSize: number = 6;
+  isAuthenticated: boolean = false;
+
 
   constructor(private modalService: NzModalService,
     private fb: FormBuilder,
-    private taskService: TaskService) {}
+    private taskService: TaskService,
+    private categoryService: CategoryService,
+    private authenticationService: AuthenticationService,
+    private notificationLocalService: NotificationLocalService,
+  ) {}
 
     ngOnInit() {
       // Initialize tasks and other data
@@ -55,6 +64,14 @@ export class TasksPageComponent {
           this.selectedTask = task;
         }
       });
+
+      this.categoryService.categories$.subscribe(categories => {
+        this.categories = JSON.parse(categories);
+      })
+
+      this.authenticationService.currentAuthenticationState.subscribe((state) => {
+        this.isAuthenticated = state;
+      })
 
     }
 
@@ -78,8 +95,33 @@ export class TasksPageComponent {
         nzTitle: task.title,
         nzContent: EditTaskComponent,
         nzWidth: '80vw',
+        nzData: {
+          categories: this.categories,
+          task: this.selectedTask,
+        },
         nzOnOk: async () => {
-          //const modalTask = modal.getContentComponent().taskData;
+          const modalTask = modal.getContentComponent().taskData;
+
+          if(this.isAuthenticated){
+            if(modalTask){
+              this.taskService.updateTask(modalTask['id'], modalTask).subscribe({
+                next: (data: any) => {
+                  this.notificationLocalService.createSuccessNotification('Successfully updated task!')
+                },
+                error: (err) => {
+                  this.notificationLocalService.createErrorNotification('Something went wrong saving the task data!');
+                } 
+              })
+              
+              this.taskService.tasks$.subscribe(task => {
+                let currentTask = task.find((item: any) => item['_id'] === modalTask['id'])
+                console.log(currentTask);
+
+                currentTask = modalTask;
+              })
+              modal.destroy();
+            }
+          }
         }
       })
 

@@ -18,4 +18,8 @@ export class SubscriptionService extends BaseService {
    subscribeToService(subscription: Subscription) {
     return this.http.post<any>(this.baseUrl + `/subscribe`, JSON.stringify(subscription), { headers: this.header, withCredentials: true })
    }
+
+   subscriptionCallBack(trxref: string){
+    return this.http.post<any>(this.baseUrl + `/subscription-callback`, {trxref}, { headers: this.header, withCredentials: true })
+   }
 }

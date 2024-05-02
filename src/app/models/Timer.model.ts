@@ -1,11 +1,11 @@
 import { Category } from "./Category.model";
 
 export interface Task{
-    id?: null;
+    id?: any;
     title: string;
     description: string;
     priority: string;
-    category: Category | string;
+    category: Category | null;
     isCompleted: boolean;
     startDate?: Date | null;
     dueDate?: Date | null; 

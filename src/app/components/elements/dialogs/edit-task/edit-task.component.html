@@ -1,1 +1,6 @@
-<p>edit-task works!</p>
+<nz-steps [nzCurrent]="currentStep" (nzIndexChange)="handleIndexChange($event)">
+    <nz-step nzTitle="Task Details"></nz-step>
+    <nz-step nzTitle="Priority and Category"></nz-step>
+    <nz-step nzTitle="Dates and Time"></nz-step>
+    <nz-step nzTitle="Additional Details"></nz-step>
+</nz-steps>

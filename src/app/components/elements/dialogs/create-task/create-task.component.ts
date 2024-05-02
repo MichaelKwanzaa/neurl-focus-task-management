@@ -16,7 +16,7 @@ export class CreateTaskComponent {
     title: '',
     description: '',
     priority: '',
-    category: '',
+    category: null,
     isCompleted: false,
     startDate: null,
     dueDate: null,
@@ -39,7 +39,7 @@ export class CreateTaskComponent {
       return {
         name: cat.name[0].toUpperCase() + cat.name.slice(1)
       }
-      })
+    })
   }
 
   handleIndexChange(index: number): void {
@@ -84,9 +84,11 @@ export class CreateTaskComponent {
 
   onCategoryChange(value: any): void {
     if(this.selectedCategory === 'new-option'){
-      this.taskData.category = '';
+      this.taskData.category!.name = '';
     } else {
-      this.taskData.category = this.selectedCategory;
+      this.taskData.category!.name = this.selectedCategory;
     }
   }
+
+  
 }

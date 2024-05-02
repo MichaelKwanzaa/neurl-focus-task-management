@@ -1,1 +1,52 @@
-<p>register-page works!</p>
+<app-wrapper>
+    <div class="register">
+      <div class="container">
+        <div class="form">
+          <div class="form-content">
+            <header>Register</header>
+            <form nz-form [formGroup]="registerForm">
+              <nz-form-item class="field">
+                <nz-form-control nzErrorTip="Please input your name!">
+                  <nz-input-group nzPrefixIcon="user">
+                    <input type="text" nz-input formControlName="name" placeholder="Name" />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item class="field">
+                <nz-form-control nzErrorTip="Please input your email!">
+                  <nz-input-group nzPrefixIcon="mail">
+                    <input type="email" nz-input formControlName="email" placeholder="Email" />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item class="field">
+                <nz-form-control nzErrorTip="Please input your password!">
+                  <nz-input-group nzPrefixIcon="lock">
+                    <input type="password" nz-input formControlName="password" placeholder="Password" />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item class="field">
+                <nz-form-control nzErrorTip="Please confirm your password!">
+                  <nz-input-group nzPrefixIcon="lock">
+                    <input type="password" nz-input formControlName="confirmPassword" placeholder="Confirm Password" />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <button class="register-form-button register-form-margin" (click)="registerUser()">Register</button>
+            </form>
+            <div class="form-link">
+              <span>Already have an account? <a (click)="goToUrl('login')" class="link">Log In</a></span>
+            </div>
+          </div>
+          <div class="line"></div>
+          <div class="media-options">
+            <a [href]="googleSignIn()" target="_self" class="field google">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png" alt="google sign in image" class="google-img">
+              <span>Register with Google</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-wrapper>

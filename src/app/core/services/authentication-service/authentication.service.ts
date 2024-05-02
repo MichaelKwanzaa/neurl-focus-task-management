@@ -42,6 +42,10 @@ export class AuthenticationService extends BaseService {
     return this.http.get<any>(this.baseUrl + "/logout", { headers: this.header, withCredentials: true });
   }
 
+  register(name: string, email: string, password: string): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/register', JSON.stringify({name, email, password}), { headers: this.header, withCredentials: true })
+  }
+
   storeAccessToken(accessToken: string) {
     this.storageService.setData(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
     this.accessTokenSubject.next(accessToken);
@@ -59,6 +63,7 @@ export class AuthenticationService extends BaseService {
 
   handleLocalLogout() {
     this.handleAuthentication(null, null);
+    this.storageService.clearData();
     this.router.navigate(['/login']);
   }
 

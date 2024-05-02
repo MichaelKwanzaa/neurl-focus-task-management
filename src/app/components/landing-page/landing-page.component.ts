@@ -32,18 +32,22 @@ export class LandingPageComponent {
   ngOnInit(){
     this.settings = this.settingsService.getLocalSettings();
     this.taskService.currentTask$.subscribe(task => {
+      console.log(task);
       this.selectedTask = task;
+
+      if(task){
+        this.timerType = task['timer']
+      }
     });
+
     this.authenticationService.currentAuthenticationState.subscribe((state) => {
       this.isAuthenticated = state;
     })
+
     this.categoryService.categories$.subscribe(categories => {
       this.categories = JSON.parse(categories);
     })
-    
-    if(this.selectedTask){
-      this.timerType = this.selectedTask['timer']
-    }
+  
   }
 
   showCreateTaskDialog(){

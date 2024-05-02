@@ -1,3 +1,30 @@
+<!-- app.component.html -->
 <app-wrapper>
-    <button (click)="subscribe()">Subscribe</button>
-</app-wrapper>
+    <div class="pricing-section">
+      <h2 class="pricing-heading">Choose Your Plan</h2>
+      <div class="pricing-container">
+        <div class="plan-card">
+          <h3 class="plan-title">Monthly Plan</h3>
+          <p class="price">₦1,500</p>
+          <p class="billing-cycle">Billed monthly</p>
+          <ul class="benefits">
+            <li>Access to all features</li>
+            <li>Priority support</li>
+            <li>No commitment</li>
+          </ul>
+          <button class="select-btn" (click)="subscribe('monthly')">Select</button>
+        </div>
+        <div class="plan-card">
+          <h3 class="plan-title">Annual Plan</h3>
+          <p class="price">₦15,000</p>
+          <p class="billing-cycle">Billed annually</p>
+          <ul class="benefits">
+            <li>Access to all features</li>
+            <li>Priority support</li>
+            <li>20% discount</li>
+          </ul>
+          <button class="select-btn" (click)="subscribe('yearly')">Select</button>
+        </div>
+      </div>
+    </div>
+  </app-wrapper>

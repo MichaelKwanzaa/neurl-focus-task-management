@@ -40,6 +40,15 @@ export class WrapperComponent {
       if(state){
         this.isLoggedIn = true;
 
+        //refresh all tasks and settings to their origin state
+        this.tasksService.setAllTasks([]);
+        this.settingsService.updateLocalSettings({
+          pomodoroWorkTime: 25,
+          pomodoroShortBreakTime: 5,
+          pomodoroLongBreakTime: 15,
+          pomodoroIntervalCount: 4
+        })
+
         const user$ = this.userService.getUser();
 
         const categories$ = this.categoryService.getUserCategories();
@@ -49,29 +58,40 @@ export class WrapperComponent {
           const userData = responses[0];
           const categoriesData = responses[1];
 
+          console.log({userData})
+
           /** start of user data sorting */
           const user = userData.data.data;
-          const pomodoroWorkTime = user['settings'].pomodoroWorkTime;
-          const pomodoroShortBreakTime = user['settings'].pomodoroShortBreakTime;
-          const pomodoroLongBreakTime = user['settings'].pomodoroLongBreakTime;
-          const pomodoroIntervalCount = user['settings'].pomodoroIntervalCount;
-          const blockedUrls = user['settings'].blockedUrls;
+
+          if(user['settings']){
+            const pomodoroWorkTime = user['settings'].pomodoroWorkTime;
+            const pomodoroShortBreakTime = user['settings'].pomodoroShortBreakTime;
+            const pomodoroLongBreakTime = user['settings'].pomodoroLongBreakTime;
+            const pomodoroIntervalCount = user['settings'].pomodoroIntervalCount;
+            const blockedUrls = user['settings'].blockedUrls;  
+
+            const updatedSettings = {
+              pomodoroWorkTime,
+              pomodoroShortBreakTime,
+              pomodoroLongBreakTime,
+              pomodoroIntervalCount,
+              blockedUrls
+            }
+
+            this.settingsService.updateLocalSettings(updatedSettings);
+
+          }
+
+          console.log(user)
 
           if(user['picture']){
             this.profilePicture = user['picture']
+          } else {
+            this.profilePicture = ''
+            this.name = user['name']
           }
 
-          this.name = user['name']
-          const updatedSettings = {
-            pomodoroWorkTime,
-            pomodoroShortBreakTime,
-            pomodoroLongBreakTime,
-            pomodoroIntervalCount,
-            blockedUrls
-          }
-
-
-          this.settingsService.updateLocalSettings(updatedSettings);
+       
           this.tasksService.setAllTasks(user['tasks']);
           /** end of user data sorting */
           /** start of category sorting */
@@ -101,14 +121,20 @@ export class WrapperComponent {
 
   }
 
-  goToUrl(url: string){
+  goToUrl(url: string){ 
     this.router.navigate([`/${url}`])
   }
 
   logout(){
-    this.authenticationService.logout().subscribe((data) => {
-      this.authenticationService.handleLocalLogout();
-      this.isLoggedIn = false;
+    this.authenticationService.logout().subscribe({
+      next: (data: any) => {
+        this.authenticationService.handleLocalLogout();
+        this.isLoggedIn = false;
+      },
+      error: (err) => {
+        this.authenticationService.handleLocalLogout();
+        this.isLoggedIn = false;
+      }
     })
   }
 }
