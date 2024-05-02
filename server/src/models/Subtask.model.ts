@@ -5,7 +5,6 @@ interface SubtaskDocument extends Document{
     description: string;
     isCompleted: boolean;
     order: number; // Index of the subtask within the parent task
-    parentTask: ObjectId; // Reference to the parent task
     estimatedTime: number; // (in minutes)
     notes: string;
 }
@@ -15,7 +14,6 @@ const SubtaskSchema = new Schema<SubtaskDocument>({
     description: { type: String },
     isCompleted: { type: Boolean, default: false },
     order: { type: Number, required: true },
-    parentTask: { type: Schema.Types.ObjectId, ref: 'task', required: true },
     estimatedTime: { type: Number },
     notes: { type: String },
 },
@@ -25,4 +23,4 @@ const SubtaskSchema = new Schema<SubtaskDocument>({
 
 const Subtask = mongoose.model<SubtaskDocument>('subtask', SubtaskSchema)
 
-export { Subtask }
+export { Subtask } 

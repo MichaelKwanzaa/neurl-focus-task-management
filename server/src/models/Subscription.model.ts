@@ -9,8 +9,10 @@ interface SubscriptionDocument extends Document{
     endDate: Date; // Optional, calculated based on billing frequency and start date
     status: string; // Enum for subscription status (e.g., "active", "cancelled", "paused")
     // You might also consider including:
-    nextBillingDate: Date //(calculated based on billing frequency and start date)
-    paymentMethod: string //(e.g., "credit card", "PayPal")
+    metadata: {
+        tx_ref: string; // Transaction reference from Flutterwave
+        // Add any other metadata fields you need
+      };
 }
 
 const SubscriptionSchema = new Schema<SubscriptionDocument>({
@@ -18,11 +20,13 @@ const SubscriptionSchema = new Schema<SubscriptionDocument>({
     plan: { type: String, required: true, enum: ['basic'], default: 'basic' },
     billingFrequency: { type: String, enum: ['monthly', 'yearly'], required: true },
     price: { type: Number, required: true, min: 0 }, // Ensure non-negative price
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, virtual: true }, // Calculate based on billing frequency and start date
-    status: { type: String, enum: ['active', 'cancelled', 'paused'], required: true },
-    nextBillingDate: { type: Date, virtual: true },
-    paymentMethod: { type: String }
+    startDate: { type: Date,  },
+    endDate: { type: Date,  }, // Calculate based on billing frequency and start date
+    status: { type: String, enum: ['active', 'cancelled', 'paused', 'pending'], required: true },
+    metadata: {
+        tx_ref: { type: String, required: true },
+        // Add any other metadata fields you need
+    },
 },
 {
     timestamps: true

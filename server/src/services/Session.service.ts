@@ -1,7 +1,7 @@
 import { get } from "lodash";
 import { FilterQuery, UpdateQuery } from "mongoose";
 import { SessionDocument } from "../models/Session.model";
-import { signJwt, verifyJwt } from "../utils/jwt.util";
+import { signJwt, verifyJwt } from "../utils/Jwt.util";
 import { User, Session } from "../models";
 
 export async function createSession(userId: string, userAgent: string) {

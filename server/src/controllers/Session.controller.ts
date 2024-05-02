@@ -4,12 +4,11 @@ import { createSession, getGoogleOAuthToken, getGoogleUser } from '../services'
 import { ApiResponse } from '../utils/ApiResponse.util'
 import { sendErrorResponse } from '../utils/ErrorResponse.util'
 import { User } from '../models'
-import { signJwt } from '../utils/jwt.util'
+import { signJwt } from '../utils/Jwt.util'
 
 const accessTokenCookieOptions: CookieOptions = {
     maxAge: 900000, // 15 mins
     httpOnly: true,
-    domain: "localhost",
     path: "/",
     sameSite: "lax",
     secure: false,

@@ -7,11 +7,8 @@ interface SettingsDocument extends Document {
   pomodoroShortBreakTime: number; // Duration of short breaks in minutes
   pomodoroLongBreakTime: number; // Duration of long breaks (after multiple pomodoros) in minutes
   pomodoroIntervalCount: number; // Number of pomodoro intervals before a long break
-
+  blockedUrls: Array<string>
   // Other settings (optional examples)
-  defaultTimerType: 'pomodoro' | 'infinite' | 'task';
-  soundNotifications: boolean;
-  theme: 'light' | 'dark';
 }
 
 const SettingsSchema = new Schema<SettingsDocument>({
@@ -36,23 +33,9 @@ const SettingsSchema = new Schema<SettingsDocument>({
     required: true,
     default: 4
   },
-  defaultTimerType: {
-    type: String,
-    required: true,
-    enum: ['pomodoro', 'infinite', 'task'],
-    default: 'pomodoro'
-  },
-  soundNotifications: {
-    type: Boolean,
-    required: true,
-    default: true
-  },
-  theme: {
-    type: String,
-    required: true,
-    enum: ['light', 'dark'],
-    default: 'light'
-  }
+  blockedUrls: [{
+    type: String
+  }]
 }, {
   timestamps: true
 });

@@ -44,23 +44,6 @@ const UserSchema = new Schema<UserDocument>({
     timestamps: true
 })
 
-UserSchema.pre("save", async function (next) {
-    let user = this as UserDocument;
-  
-    if (!user.isModified("password")) {
-      return next()
-    }
-  
-    const salt = await bcrypt.genSalt(process.env.SALTWORKFACTOR)
-  
-    const hash = await bcrypt.hashSync(user.password, salt)
-    
-    user.userId = uuidv4()
-
-    user.password = hash
-  
-    return next()
-});
 
 UserSchema.methods.comparePassword = async function (
     candidatePassword: string
