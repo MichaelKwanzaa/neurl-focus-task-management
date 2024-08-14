@@ -34,7 +34,11 @@ export class SettingService extends BaseService{
   constructor(private http: HttpClient, private storageService: StorageService) { 
     super('setting')
 
-    this.settings = this.storageService.getData(STORAGE_KEYS.SETTINGS);
+    const localSettingsSaved = this.storageService.getData(STORAGE_KEYS.SETTINGS);
+
+    if(localSettingsSaved){
+      this.updateLocalSettings(localSettingsSaved);
+    }
   }
 
   getSetting(): Observable<any>{
@@ -48,7 +52,7 @@ export class SettingService extends BaseService{
   // ---------- functions ---------- //
 
   public updateLocalSettings(settings: Settings){
-    console.log(settings, "getting the settings from somehwre")
+    console.log({settings})
     this.settings = settings;
     this.settingSubject.next(settings);
     this.storageService.setData(STORAGE_KEYS.SETTINGS, settings);
@@ -58,5 +62,15 @@ export class SettingService extends BaseService{
     return this.settings;
   }
 
+  public setDefaultSettings(){
+    this.settings = {
+      pomodoroWorkTime: 25,
+      pomodoroShortBreakTime: 5,
+      pomodoroLongBreakTime: 15,
+      pomodoroIntervalCount: 4
+    }
+    this.settingSubject.next(this.settings);
+    this.storageService.setData(STORAGE_KEYS.SETTINGS, this.settings);
+  }
 
 }

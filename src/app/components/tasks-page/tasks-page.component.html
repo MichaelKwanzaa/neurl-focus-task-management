@@ -11,7 +11,9 @@
         </ng-template>
       </div>
     </div>
-    <nz-list [nzBordered]="true" [nzItemLayout]="'horizontal'" [nzSize]="'large'" [nzSplit]="true" nGrid>
+    <nz-list [nzBordered]="true" 
+    *ngIf="filteredTasks.length > 0"
+    [nzItemLayout]="'horizontal'" [nzSize]="'large'" [nzSplit]="true" nGrid>
       <div nz-row [nzGutter]="16">
         <div nz-col [nzXXl]="8" 
         [nzXl]="4" 

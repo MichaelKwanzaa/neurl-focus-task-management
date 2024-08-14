@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from 'src/app/core/services/authentication-service/authentication.service';
+import { NotificationLocalService } from 'src/app/core/services/notification-local-service/notification-local.service';
 import { SettingService } from 'src/app/core/services/setting-service/setting.service';
 import { StorageService } from 'src/app/core/services/storage-service/storage.service';
 import { Settings } from 'src/app/models';
@@ -17,12 +19,24 @@ export class SettingsPageComponent {
 
 
   settings : Settings = {};
+  isAuthenticated: boolean = false;
 
-  constructor(private settingsService: SettingService, private storageService: StorageService){}
+  constructor(private settingsService: SettingService, private storageService: StorageService,
+    private authenticationService: AuthenticationService,
+    private notificationLocalService: NotificationLocalService
+  ){}
 
   ngOnInit(){
     this.settingsService.settings$.subscribe(settings => {
       this.settings = settings;
+      this.pomodoroWorkTime = settings.pomodoroWorkTime;
+      this.pomodoroShortBreakTime = settings.pomodoroShortBreakTime;
+      this.pomodoroLongBreakTime = settings.pomodoroLongBreakTime;
+      this.pomodoroIntervalCount = settings.pomodoroIntervalCount;
+    })
+
+    this.authenticationService.currentAuthenticationState.subscribe((state) => {
+      this.isAuthenticated = state;
     })
   }
 
@@ -34,11 +48,14 @@ export class SettingsPageComponent {
       pomodoroIntervalCount: this.pomodoroIntervalCount
     }
 
-    this.storageService.setData(STORAGE_KEYS.SETTINGS, this.settings);
-
-    this.settingsService.upsertSetting(this.settings).subscribe(settings => {
-      console.log(settings);
-    })
+    this.settingsService.updateLocalSettings(this.settings)
+ 
+    if(this.isAuthenticated){
+      this.settingsService.upsertSetting(this.settings).subscribe(settings => {
+        console.log(settings);
+      })
+    }
+    
   }
 
 

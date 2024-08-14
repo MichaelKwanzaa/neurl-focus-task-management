@@ -1,12 +1,13 @@
 <app-wrapper>
     <div class="main-content">
         <div class="task-section">
-          <div class="create-new-task" *ngIf="selectedTask">
+          <div class="create-new-task">
             <button nz-button nzType="primary" (click)="showCreateTaskDialog()">
               <span>Create New task</span>
             </button>
           </div>
           <div class="timer-container" *ngIf="settings && selectedTask">
+            <h1>Working</h1>
             <div class="timer">
               <ng-container [ngSwitch]="timerType">
                 <app-pomodoro-timer

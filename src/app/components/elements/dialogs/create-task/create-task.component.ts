@@ -83,6 +83,7 @@ export class CreateTaskComponent {
   }
 
   onCategoryChange(value: any): void {
+    console.log(this.selectedCategory);
     if(this.selectedCategory === 'new-option'){
       this.taskData.category!.name = '';
     } else {

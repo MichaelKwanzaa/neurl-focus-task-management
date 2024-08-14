@@ -55,13 +55,20 @@ export class WrapperComponent {
 
 
         forkJoin([user$, categories$]).subscribe((responses) => {
-          const userData = responses[0];
+          const userData: any = responses[0];
           const categoriesData = responses[1];
 
           console.log({userData})
 
+          let user = null
+
+          if(userData){
+            if(userData.data){
+              user = userData.data;
+
           /** start of user data sorting */
-          const user = userData.data.data;
+
+          console.log(user['settings'])
 
           if(user['settings']){
             const pomodoroWorkTime = user['settings'].pomodoroWorkTime;
@@ -79,7 +86,8 @@ export class WrapperComponent {
             }
 
             this.settingsService.updateLocalSettings(updatedSettings);
-
+          } else {
+            this.settingsService.setDefaultSettings();
           }
 
           console.log(user)
@@ -100,6 +108,10 @@ export class WrapperComponent {
           this.categoryService.setLocalCategories(categories);
 
           /**end of category sorting */
+
+            }
+          }
+
 
         })
 

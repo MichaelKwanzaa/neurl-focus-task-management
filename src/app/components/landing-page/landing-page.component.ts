@@ -30,9 +30,12 @@ export class LandingPageComponent {
     private categoryService: CategoryService) {}
 
   ngOnInit(){
-    this.settings = this.settingsService.getLocalSettings();
+    this.settingsService.settings$.subscribe(settings => {
+      if(settings){
+        this.settings = settings;
+      }
+    })
     this.taskService.currentTask$.subscribe(task => {
-      console.log(task);
       this.selectedTask = task;
 
       if(task){
@@ -45,7 +48,10 @@ export class LandingPageComponent {
     })
 
     this.categoryService.categories$.subscribe(categories => {
-      this.categories = JSON.parse(categories);
+      console.log(categories);
+      if(categories.length > 0){
+        this.categories = JSON.parse(categories);
+      }
     })
   
   }
@@ -71,7 +77,6 @@ export class LandingPageComponent {
             }
           })
         }
-
         this.taskService.setLocalTask(modalTask)
         this.selectedTask = modalTask
 
